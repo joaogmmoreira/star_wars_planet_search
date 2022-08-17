@@ -1,20 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import getPlanets from '../services/fetchApi';
+import React, { useContext } from 'react';
 import PlanetsTableContent from './PlanetsTableContent';
+import AppContext from '../context/AppContext';
 
 function PlanetsTable() {
-  const [tableInfo, setTableInfo] = useState([]);
-
-  const tableHeaderContent = async () => {
-    const content = await getPlanets();
-    const tableValues = content.results;
-    tableValues.forEach((element) => delete element.residents);
-    setTableInfo(tableValues);
-  };
-
-  useEffect(() => {
-    tableHeaderContent();
-  }, []);
+  const { tableInfo } = useContext(AppContext);
 
   if (tableInfo.length === 0) {
     return (
