@@ -6,16 +6,20 @@ import AppContext from './AppContext';
 function AppProvider({ children }) {
   const [filterByName, setFilterName] = useState({ name: '' });
   const [tableInfo, setTableInfo] = useState([]);
-  const [valueFilterNumber, setValueFilterNumber] = useState('');
-  const [columnFilter, setColumnFilter] = useState('population');
-  const [comparisonFilter, setComparisonFilter] = useState('maior que');
-  const [filter, setFilter] = useState(false);
+  const [tableInfoCopy, setTableInfoCopy] = useState([]);
+  const [filterByNumericValues,
+    setFilterByNumericValues] = useState([{
+    column: 'population',
+    comparison: 'maior que',
+    value: '0' }]);
+  const [activeFilters, setActiveFilters] = useState([]);
 
   const tableHeaderContent = async () => {
     const content = await getPlanets();
     const tableValues = content.results;
     tableValues.forEach((element) => delete element.residents);
     setTableInfo(tableValues);
+    setTableInfoCopy(tableValues);
   };
 
   useEffect(() => {
@@ -24,7 +28,38 @@ function AppProvider({ children }) {
 
   const handleChange = ({ target: { value } }) => {
     setFilterName({ name: value });
-    // console.log(filterByName.name.length);
+    const filteredTableContent = tableInfoCopy.filter((element) => element
+      .name.toLowerCase().includes(value.toLowerCase()));
+    console.log(filteredTableContent);
+    setTableInfo(filteredTableContent);
+  };
+
+  const activateFilter = () => {
+    const { column, comparison, value } = filterByNumericValues;
+    // const filters = { column, comparison, value };
+    // setActiveFilters([...activeFilters, filters]);
+    // console.log(tableInfoCopy);
+    console.log(filterByNumericValues);
+    if (comparison === 'maior que') {
+      const filteredInfo = tableInfoCopy
+        .filter((element) => parseInt(element[column], 10)
+        > parseInt(value, 10));
+      setTableInfo(filteredInfo);
+    }
+
+    if (comparison === 'menor que') {
+      const filteredInfo = tableInfoCopy
+        .filter((element) => parseInt(element[column], 10)
+        < parseInt(value, 10));
+      setTableInfo(filteredInfo);
+    }
+
+    if (comparison === 'igual a') {
+      const filteredInfo = tableInfoCopy
+        .filter((element) => parseInt(element[column], 10)
+        === parseInt(value, 10));
+      setTableInfo(filteredInfo);
+    }
   };
 
   const context = {
@@ -32,48 +67,21 @@ function AppProvider({ children }) {
     setFilterName,
     handleChange,
     tableInfo,
-    valueFilterNumber,
-    setValueFilterNumber,
-    columnFilter,
-    setColumnFilter,
-    comparisonFilter,
-    setComparisonFilter,
-    filter,
-    setFilter,
+    // valueFilterNumber,
+    // setValueFilterNumber,
+    // columnFilter,
+    // setColumnFilter,
+    // comparisonFilter,
+    // setComparisonFilter,
+    activateFilter,
+    // setFilter,
+    activeFilters,
+    setActiveFilters,
+    // refreshFilter,
+    // setRefreshFilter,
+    filterByNumericValues,
+    setFilterByNumericValues,
   };
-
-  if (filter && comparisonFilter === 'maior que') {
-    const filteredInfo = tableInfo
-      .filter((element) => parseInt(element[columnFilter], 10)
-      > parseInt(valueFilterNumber, 10));
-    // console.log(filteredInfo);
-    // RESOLVER RENDERIZAÇÃO
-  }
-
-  if (filter && comparisonFilter === 'menor que') {
-    const filteredInfo = tableInfo
-      .filter((element) => parseInt(element[columnFilter], 10)
-      < parseInt(valueFilterNumber, 10));
-    // console.log(filteredInfo);
-    // RESOLVER RENDERIZAÇÃO
-  }
-
-  if (filter && comparisonFilter === 'igual a') {
-    const filteredInfo = tableInfo
-      .filter((element) => parseInt(element[columnFilter], 10)
-      === parseInt(valueFilterNumber, 10));
-    // console.log(filteredInfo);
-    // RESOLVER RENDERIZAÇÃO
-  }
-
-  if (filterByName.name.length > 0) {
-    const filteredTableContent = tableInfo.filter((element) => element
-      .name.toLowerCase().includes(filterByName.name.toLowerCase()));
-    // setTableInfo(filteredTableContent);
-    // console.log(filterByName);
-    console.log(filteredTableContent);
-    // RESOLVER RENDERIZAÇÃO
-  }
 
   return (
     <AppContext.Provider value={ context }>

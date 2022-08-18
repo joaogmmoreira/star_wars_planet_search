@@ -2,30 +2,31 @@ import React, { useContext } from 'react';
 import AppContext from '../context/AppContext';
 
 function SelectFilters() {
-  const { setValueFilterNumber,
-    setColumnFilter,
-    setComparisonFilter,
-    setFilter,
+  const {
+    activateFilter,
+    filterByNumericValues,
+    setFilterByNumericValues,
   } = useContext(AppContext);
 
-  const handleFilterNumberChange = ({ target }) => {
-    setValueFilterNumber(target.value);
-    // console.log(valueFilterNumber);
-  };
-
-  const handleColumnFilterChange = ({ target }) => {
-    setColumnFilter(target.value);
-    // console.log(columnFilter);
-  };
-
-  const handleComparisonFilterChange = ({ target }) => {
-    setComparisonFilter(target.value);
-    // console.log(comparisonFilter);
-  };
-
-  const activateFilter = () => {
-    setFilter(true);
-    // console.log(filter);
+  const handleFilterChange = ({ target }) => {
+    if (target.id === 'column-filter') {
+      setFilterByNumericValues([{ column: target.value,
+        comparison,
+        value }]);
+      console.log(filterByNumericValues);
+    }
+    if (target.id === 'comparison-filter') {
+      setFilterByNumericValues([{ column,
+        comparison: target.value,
+        value }]);
+      console.log(filterByNumericValues);
+    }
+    if (target.id === 'value-filter') {
+      setFilterByNumericValues([{ column,
+        comparison,
+        value: target.value }]);
+      console.log(filterByNumericValues);
+    }
   };
 
   return (
@@ -35,7 +36,7 @@ function SelectFilters() {
         <select
           id="column-filter"
           data-testid="column-filter"
-          onChange={ handleColumnFilterChange }
+          onChange={ handleFilterChange }
         >
           <option value="population">population</option>
           <option value="orbital_period">orbital_period</option>
@@ -49,7 +50,7 @@ function SelectFilters() {
         <select
           id="comparison-filter"
           data-testid="comparison-filter"
-          onChange={ handleComparisonFilterChange }
+          onChange={ handleFilterChange }
         >
           <option
             value="maior que"
@@ -70,9 +71,10 @@ function SelectFilters() {
       </label>
       <input
         type="number"
+        id="value-filter"
         data-testid="value-filter"
         defaultValue="0"
-        onChange={ handleFilterNumberChange }
+        onChange={ handleFilterChange }
       />
       <button
         type="button"
