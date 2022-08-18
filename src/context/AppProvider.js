@@ -30,36 +30,41 @@ function AppProvider({ children }) {
     setFilterName({ name: value });
     const filteredTableContent = tableInfoCopy.filter((element) => element
       .name.toLowerCase().includes(value.toLowerCase()));
-    console.log(filteredTableContent);
+    // console.log(filteredTableContent);
     setTableInfo(filteredTableContent);
   };
 
   const activateFilter = () => {
-    const { column, comparison, value } = filterByNumericValues;
     // const filters = { column, comparison, value };
     // setActiveFilters([...activeFilters, filters]);
-    // console.log(tableInfoCopy);
     console.log(filterByNumericValues);
-    if (comparison === 'maior que') {
-      const filteredInfo = tableInfoCopy
-        .filter((element) => parseInt(element[column], 10)
-        > parseInt(value, 10));
-      setTableInfo(filteredInfo);
-    }
+    filterByNumericValues.forEach((element) => {
+      const { column, comparison, value } = element;
+      if (comparison === 'maior que') {
+        const filteredInfo = tableInfoCopy
+          .filter((element2) => Number(element2[column]) > Number(value));
+        setTableInfo(filteredInfo);
+      }
+      // if (comparison === 'menor que') {
+      //   const filteredInfo = tableInfoCopy
+      //     .filter((element2) => Number(element2[column]) < Number(value));
+      //   setTableInfo(filteredInfo);
+      // }
+    });
 
-    if (comparison === 'menor que') {
-      const filteredInfo = tableInfoCopy
-        .filter((element) => parseInt(element[column], 10)
-        < parseInt(value, 10));
-      setTableInfo(filteredInfo);
-    }
+    // if (comparison === 'menor que') {
+    //   const filteredInfo = tableInfoCopy
+    //     .filter((element) => parseInt(element[column], 10)
+    //     < parseInt(value, 10));
+    //   setTableInfo(filteredInfo);
+    // }
 
-    if (comparison === 'igual a') {
-      const filteredInfo = tableInfoCopy
-        .filter((element) => parseInt(element[column], 10)
-        === parseInt(value, 10));
-      setTableInfo(filteredInfo);
-    }
+    // if (comparison === 'igual a') {
+    //   const filteredInfo = tableInfoCopy
+    //     .filter((element) => parseInt(element[column], 10)
+    //     === parseInt(value, 10));
+    //   setTableInfo(filteredInfo);
+    // }
   };
 
   const context = {
@@ -67,18 +72,9 @@ function AppProvider({ children }) {
     setFilterName,
     handleChange,
     tableInfo,
-    // valueFilterNumber,
-    // setValueFilterNumber,
-    // columnFilter,
-    // setColumnFilter,
-    // comparisonFilter,
-    // setComparisonFilter,
     activateFilter,
-    // setFilter,
     activeFilters,
     setActiveFilters,
-    // refreshFilter,
-    // setRefreshFilter,
     filterByNumericValues,
     setFilterByNumericValues,
   };
