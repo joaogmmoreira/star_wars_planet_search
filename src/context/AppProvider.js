@@ -8,18 +8,14 @@ function AppProvider({ children }) {
   const [tableInfo, setTableInfo] = useState([]);
   const [tableInfoCopy, setTableInfoCopy] = useState([]);
   const [filterByNumericValues,
-    setFilterByNumericValues] = useState([{
-    column: 'population',
-    comparison: 'maior que',
-    value: '0',
-  }]);
-  // const [filterByColumn,
-  //   setFilterByColumn] = useState({ column: 'population' });
-  // const [
-  //   filterByComparison,
-  //   setFilterByComparison] = useState({ comparison: 'maior que' });
-  // const [filterByValue,
-  //   setFilterByValue] = useState({ value: '0' });
+    setFilterByNumericValues] = useState([{}]);
+  const [filterByColumn,
+    setFilterByColumn] = useState('population');
+  const [
+    filterByComparison,
+    setFilterByComparison] = useState('maior que');
+  const [filterByValue,
+    setFilterByValue] = useState('0');
   // const [activeFilters, setActiveFilters] = useState([]);
   // const [filterFlag, setFilterFlag] = useState(false);
 
@@ -64,26 +60,30 @@ function AppProvider({ children }) {
   };
 
   const activateFilter = () => {
-    // console.log(filterByColumn, filterByComparison, filterByValue);
-    filterByNumericValues.forEach((element) => {
-      const { column, comparison, value } = element;
-      if (comparison === 'maior que') {
-        const filteredInfo = tableInfoCopy
-          .filter((element2) => Number(element2[column]) > Number(value));
-        setTableInfo(filteredInfo);
-      }
-      if (comparison === 'menor que') {
-        const filteredInfo = tableInfoCopy
-          .filter((element2) => Number(element2[column]) < Number(value));
-        setTableInfo(filteredInfo);
-      }
-      if (comparison === 'igual a') {
-        const filteredInfo = tableInfoCopy
-          .filter((element2) => element2[column] !== 'unknown'
-          && Number(element2[column]) === number(value));
-        setTableInfo(filteredInfo);
-      }
-    });
+    setFilterByNumericValues([...filterByNumericValues, {
+      column: filterByColumn,
+      comparison: filterByComparison,
+      value: filterByValue,
+    }]);
+    // filterByNumericValues.forEach((element) => {
+    // const { column, comparison, value } = element;
+    // console.log(filterByNumericValues);
+    if (filterByComparison === 'maior que') {
+      const filteredInfo = tableInfo
+        .filter((element2) => Number(element2[filterByColumn]) > Number(filterByValue));
+      setTableInfo(filteredInfo);
+    }
+    if (filterByComparison === 'menor que') {
+      const filteredInfo = tableInfo
+        .filter((element2) => Number(element2[filterByColumn]) < Number(filterByValue));
+      setTableInfo(filteredInfo);
+    }
+    if (filterByComparison === 'igual a') {
+      const filteredInfo = tableInfo
+        .filter((element2) => Number(element2[filterByColumn]) === Number(filterByValue));
+      setTableInfo(filteredInfo);
+    }
+    // });
   };
 
   const context = {
@@ -96,12 +96,12 @@ function AppProvider({ children }) {
     // setActiveFilters,
     filterByNumericValues,
     setFilterByNumericValues,
-    // filterByColumn,
-    // setFilterByColumn,
-    // filterByComparison,
-    // setFilterByComparison,
-    // filterByValue,
-    // setFilterByValue,
+    filterByColumn,
+    setFilterByColumn,
+    filterByComparison,
+    setFilterByComparison,
+    filterByValue,
+    setFilterByValue,
     // renderFilters,
   };
 

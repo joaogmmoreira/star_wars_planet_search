@@ -4,34 +4,28 @@ import AppContext from '../context/AppContext';
 function SelectFilters() {
   const {
     activateFilter,
-    filterByNumericValues,
-    setFilterByNumericValues,
+    // setFilterByNumericValues,
     // filterByColumn,
-    // setFilterByColumn,
+    setFilterByColumn,
     // filterByComparison,
-    // setFilterByComparison,
+    setFilterByComparison,
     // filterByValue,
-    // setFilterByValue,
+    setFilterByValue,
   } = useContext(AppContext);
 
   const handleFilterChange = ({ target }) => {
-    setFilterByNumericValues((prevState) => [...prevState, {
-      [target.id]: target.value,
-    }]);
-    console.log(filterByNumericValues);
-    // setFilterByNumericValues()
-    // if (target.id === 'column-filter') {
-    //   setFilterByColumn({ column: target.value });
-    //   // console.log(filterByColumn);
-    // }
-    // if (target.id === 'comparison-filter') {
-    //   setFilterByComparison({ comparison: target.value });
-    //   // console.log(filterByComparison);
-    // }
-    // if (target.id === 'value-filter') {
-    //   setFilterByValue({ value: target.value });
-    //   // console.log(filterByValue);
-    // }
+    if (target.id === 'column-filter') {
+      setFilterByColumn(target.value);
+      // console.log(filterByColumn);
+    }
+    if (target.id === 'comparison-filter') {
+      setFilterByComparison(target.value);
+      // console.log(filterByComparison);
+    }
+    if (target.id === 'value-filter') {
+      setFilterByValue(target.value);
+      // console.log(filterByValue);
+    }
   };
 
   return (
@@ -39,9 +33,8 @@ function SelectFilters() {
       <label htmlFor="column-filter">
         Column Filter:
         <select
-          id="column"
+          id="column-filter"
           data-testid="column-filter"
-          value={ filterByNumericValues.column }
           onChange={ handleFilterChange }
         >
           <option value="population">population</option>
@@ -54,7 +47,7 @@ function SelectFilters() {
       <label htmlFor="comparison-filter">
         Comparison Filter:
         <select
-          id="comparison"
+          id="comparison-filter"
           data-testid="comparison-filter"
           onChange={ handleFilterChange }
         >
@@ -77,7 +70,7 @@ function SelectFilters() {
       </label>
       <input
         type="number"
-        id="value"
+        id="value-filter"
         data-testid="value-filter"
         defaultValue="0"
         onChange={ handleFilterChange }
