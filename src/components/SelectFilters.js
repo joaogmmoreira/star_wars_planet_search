@@ -4,32 +4,33 @@ import AppContext from '../context/AppContext';
 function SelectFilters() {
   const {
     activateFilter,
-    // filterByNumericValues,
+    filterByNumericValues,
     setFilterByNumericValues,
+    // filterByColumn,
+    // setFilterByColumn,
+    // filterByComparison,
+    // setFilterByComparison,
+    // filterByValue,
+    // setFilterByValue,
   } = useContext(AppContext);
 
   const handleFilterChange = ({ target }) => {
-    // setFilterByNumericValues([{ ...filterByNumericValues, {variavel com o obj} }]);
-    // setFilterByNumericValues([{
-    //   [target.id]: target.value,
-    // }]);
+    setFilterByNumericValues((prevState) => [...prevState, {
+      [target.id]: target.value,
+    }]);
+    console.log(filterByNumericValues);
+    // setFilterByNumericValues()
     // if (target.id === 'column-filter') {
-    //   setFilterByNumericValues([{ column: target.value,
-    //     comparison,
-    //     value }]);
-    //   console.log(filterByNumericValues);
+    //   setFilterByColumn({ column: target.value });
+    //   // console.log(filterByColumn);
     // }
     // if (target.id === 'comparison-filter') {
-    //   setFilterByNumericValues([{ column,
-    //     comparison: target.value,
-    //     value }]);
-    //   console.log(filterByNumericValues);
+    //   setFilterByComparison({ comparison: target.value });
+    //   // console.log(filterByComparison);
     // }
     // if (target.id === 'value-filter') {
-    //   setFilterByNumericValues([{ column,
-    //     comparison,
-    //     value: target.value }]);
-    //   console.log(filterByNumericValues);
+    //   setFilterByValue({ value: target.value });
+    //   // console.log(filterByValue);
     // }
   };
 
@@ -40,6 +41,7 @@ function SelectFilters() {
         <select
           id="column"
           data-testid="column-filter"
+          value={ filterByNumericValues.column }
           onChange={ handleFilterChange }
         >
           <option value="population">population</option>
