@@ -16,8 +16,6 @@ function AppProvider({ children }) {
     setFilterByComparison] = useState('maior que');
   const [filterByValue,
     setFilterByValue] = useState('0');
-  // const [activeFilters, setActiveFilters] = useState([]);
-  // const [filterFlag, setFilterFlag] = useState(false);
 
   const tableHeaderContent = async () => {
     const content = await getPlanets();
@@ -27,30 +25,9 @@ function AppProvider({ children }) {
     setTableInfoCopy(tableValues);
   };
 
-  // const filterSet = () => {
-  //   setFilterByNumericValues([...filterByNumericValues,
-  //     { column: filterByColumn.column,
-  //       comparison: filterByComparison.comparison,
-  //       value: filterByValue.value },
-  //   ]);
-  // };
-
   useEffect(() => {
     tableHeaderContent();
   }, []);
-
-  // const renderFilters = () => (
-  //   filterByNumericValues.map((element, index) => (
-  //     <div key={ index + element.column + element.comparison + element.value }>
-  //       <button
-  //         type="button"
-  //         onClick={ () => {} }
-  //       >
-  //         {`${element.column} ${element.comparison} ${element.value}`}
-  //       </button>
-  //     </div>
-  //   ))
-  // );
 
   const handleChange = ({ target: { value } }) => {
     setFilterName({ name: value });
@@ -60,14 +37,6 @@ function AppProvider({ children }) {
   };
 
   const activateFilter = () => {
-    setFilterByNumericValues([...filterByNumericValues, {
-      column: filterByColumn,
-      comparison: filterByComparison,
-      value: filterByValue,
-    }]);
-    // filterByNumericValues.forEach((element) => {
-    // const { column, comparison, value } = element;
-    // console.log(filterByNumericValues);
     if (filterByComparison === 'maior que') {
       const filteredInfo = tableInfo
         .filter((element2) => Number(element2[filterByColumn]) > Number(filterByValue));
@@ -92,8 +61,6 @@ function AppProvider({ children }) {
     handleChange,
     tableInfo,
     activateFilter,
-    // activeFilters,
-    // setActiveFilters,
     filterByNumericValues,
     setFilterByNumericValues,
     filterByColumn,
@@ -102,7 +69,6 @@ function AppProvider({ children }) {
     setFilterByComparison,
     filterByValue,
     setFilterByValue,
-    // renderFilters,
   };
 
   return (

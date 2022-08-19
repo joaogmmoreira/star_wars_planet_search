@@ -4,27 +4,20 @@ import AppContext from '../context/AppContext';
 function SelectFilters() {
   const {
     activateFilter,
-    // setFilterByNumericValues,
-    // filterByColumn,
     setFilterByColumn,
-    // filterByComparison,
     setFilterByComparison,
-    // filterByValue,
     setFilterByValue,
   } = useContext(AppContext);
 
   const handleFilterChange = ({ target }) => {
     if (target.id === 'column-filter') {
       setFilterByColumn(target.value);
-      // console.log(filterByColumn);
     }
     if (target.id === 'comparison-filter') {
       setFilterByComparison(target.value);
-      // console.log(filterByComparison);
     }
     if (target.id === 'value-filter') {
       setFilterByValue(target.value);
-      // console.log(filterByValue);
     }
   };
 

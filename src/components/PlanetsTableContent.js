@@ -18,22 +18,25 @@ function PlanetsTableContent({ element }) {
     url,
 
   } = element;
+
   return (
     <tbody>
       <tr>
-        <td>{ name }</td>
-        <td>{ rotationPeriod }</td>
-        <td>{ orbitalPeriod }</td>
-        <td>{ diameter }</td>
-        <td>{ climate }</td>
-        <td>{ gravity }</td>
-        <td>{ terrain }</td>
-        <td>{ surfaceWater }</td>
-        <td>{ population }</td>
-        <td>{ films }</td>
-        <td>{ created }</td>
-        <td>{ edited }</td>
-        <td>{ url }</td>
+        <td data-testid="row">{ name }</td>
+        <td data-testid="row">{ rotationPeriod }</td>
+        <td data-testid="row">{ orbitalPeriod }</td>
+        <td data-testid="row">{ diameter }</td>
+        <td data-testid="row">{ climate }</td>
+        <td data-testid="row">{ gravity }</td>
+        <td data-testid="row">{ terrain }</td>
+        <td data-testid="row">{ surfaceWater }</td>
+        <td data-testid="row">{ population }</td>
+        <td data-testid="row">{ films }</td>
+        <td data-testid="row">{ films }</td>
+        <td data-testid="row">{ films }</td>
+        <td data-testid="row">{ created }</td>
+        <td data-testid="row">{ edited }</td>
+        <td data-testid="row">{ url }</td>
       </tr>
     </tbody>
   );

@@ -4,7 +4,6 @@ import PlanetsTable from './components/PlanetsTable';
 import InputFilter from './components/InputFilter';
 import AppProvider from './context/AppProvider';
 import SelectFilters from './components/SelectFilters';
-// import ActiveFilters from './components/ActiveFilters';
 
 function App() {
   return (
