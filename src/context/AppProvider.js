@@ -56,16 +56,19 @@ function AppProvider({ children }) {
       const filteredInfo = tableInfo
         .filter((element2) => Number(element2[filterByColumn]) > Number(filterByValue));
       setTableInfo(filteredInfo);
+      console.log('maior');
     }
     if (filterByComparison === 'menor que') {
       const filteredInfo = tableInfo
         .filter((element2) => Number(element2[filterByColumn]) < Number(filterByValue));
       setTableInfo(filteredInfo);
+      console.log('menor');
     }
     if (filterByComparison === 'igual a') {
       const filteredInfo = tableInfo
         .filter((element2) => Number(element2[filterByColumn]) === Number(filterByValue));
       setTableInfo(filteredInfo);
+      console.log('igual');
     }
     saveFilterToState();
   };

@@ -36,7 +36,7 @@ function SelectFilters() {
   const repeatedFilters = () => {
     filterByNumericValues.forEach((element) => {
       setSelectOptions(selectOptions.filter((element2) => element2 !== element.column));
-      console.log(element);
+      setFilterByColumn(selectOptions[0]);
     });
   };
 
