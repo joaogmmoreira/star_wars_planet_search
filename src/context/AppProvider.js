@@ -8,7 +8,7 @@ function AppProvider({ children }) {
   const [tableInfo, setTableInfo] = useState([]);
   const [tableInfoCopy, setTableInfoCopy] = useState([]);
   const [filterByNumericValues,
-    setFilterByNumericValues] = useState([{}]);
+    setFilterByNumericValues] = useState([]);
   const [filterByColumn,
     setFilterByColumn] = useState('population');
   const [
@@ -36,6 +36,21 @@ function AppProvider({ children }) {
     setTableInfo(filteredTableContent);
   };
 
+  const saveFilterToState = () => {
+    if (filterByNumericValues.length === 0) {
+      setFilterByNumericValues([{
+        column: filterByColumn,
+        comparison: filterByComparison,
+        value: filterByValue }]);
+    }
+    if (filterByNumericValues.length > 0) {
+      setFilterByNumericValues([...filterByNumericValues, {
+        column: filterByColumn,
+        comparison: filterByComparison,
+        value: filterByValue }]);
+    }
+  };
+
   const activateFilter = () => {
     if (filterByComparison === 'maior que') {
       const filteredInfo = tableInfo
@@ -52,7 +67,7 @@ function AppProvider({ children }) {
         .filter((element2) => Number(element2[filterByColumn]) === Number(filterByValue));
       setTableInfo(filteredInfo);
     }
-    // });
+    saveFilterToState();
   };
 
   const context = {

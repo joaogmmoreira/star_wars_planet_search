@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import AppContext from '../context/AppContext';
 
 function SelectFilters() {
@@ -7,7 +7,15 @@ function SelectFilters() {
     setFilterByColumn,
     setFilterByComparison,
     setFilterByValue,
+    filterByNumericValues,
   } = useContext(AppContext);
+
+  const [selectOptions, setSelectOptions] = useState([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water']);
 
   const handleFilterChange = ({ target }) => {
     if (target.id === 'column-filter') {
@@ -21,6 +29,21 @@ function SelectFilters() {
     }
   };
 
+  const renderOptions = (arr) => arr.map((element) => (
+    <option key={ element } value={ element }>{element}</option>
+  ));
+
+  const repeatedFilters = () => {
+    filterByNumericValues.forEach((element) => {
+      setSelectOptions(selectOptions.filter((element2) => element2 !== element.column));
+      console.log(element);
+    });
+  };
+
+  useEffect(() => {
+    repeatedFilters();
+  }, [filterByNumericValues]);
+
   return (
     <form>
       <label htmlFor="column-filter">
@@ -30,11 +53,8 @@ function SelectFilters() {
           data-testid="column-filter"
           onChange={ handleFilterChange }
         >
-          <option value="population">population</option>
-          <option value="orbital_period">orbital_period</option>
-          <option value="diameter">diameter</option>
-          <option value="rotation_period">rotation_period</option>
-          <option value="surface_water">surface_water</option>
+          { renderOptions(selectOptions) }
+
         </select>
       </label>
       <label htmlFor="comparison-filter">

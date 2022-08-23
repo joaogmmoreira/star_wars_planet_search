@@ -4,6 +4,7 @@ import PlanetsTable from './components/PlanetsTable';
 import InputFilter from './components/InputFilter';
 import AppProvider from './context/AppProvider';
 import SelectFilters from './components/SelectFilters';
+// import RenderFilters from './components/RenderFilters';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <h1>Star Wars</h1>
       <InputFilter />
       <SelectFilters />
+      {/* <RenderFilters /> */}
       <div>
         {/* <ActiveFilters /> */}
         <PlanetsTable />
